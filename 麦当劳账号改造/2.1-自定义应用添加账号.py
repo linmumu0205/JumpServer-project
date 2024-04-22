@@ -1,3 +1,5 @@
+#   优化创建账号逻辑同时匹配多类型资产
+#   即将账号创建到多类型资产下
 import json
 import pandas as pd
 import warnings
@@ -19,6 +21,7 @@ def make_headers(config):
         'X-JMS-ORG': config.jms_org,
     }
 
+#   获取资产列表并仅匹配Windows和OriginalAppPro资产
 def get_assets_list(config):
     url = f"{config.jms_url}/assets/assets/"
     resp = requests.get(url, headers=make_headers(config), verify=False)
@@ -35,6 +38,7 @@ def get_assets_list(config):
     # 返回两种类型的资产列表
     return windows_assets + original_assets
 
+#   读取从远程应用下获取的账号excel
 def read_excel_accounts(file_name):
     try:
         df = pd.read_excel(file_name, engine='openpyxl')
@@ -62,6 +66,7 @@ def _init_jms_data(config, accounts):
     for asset in original_assets:
         create_account(config, asset['id'], accounts)
 
+#   当账号存在时不再发请求
 def create_account(config, asset_id, accounts):
     # 构建请求 URL并从初始化数据中拿需要创建账号的资产id
     url = f"{config.jms_url}/accounts/accounts/"
