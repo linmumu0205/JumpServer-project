@@ -1,3 +1,4 @@
+#   为用户创建多类型资产授权
 import json
 import warnings
 import requests
