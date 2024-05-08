@@ -39,7 +39,7 @@ def get_user_list(config):
         resp.raise_for_status()
         users = resp.json()
         if users:
-            user_info = [{'uuid': user['id'], 'username': user['name']} for user in users]
+            user_info = [{'uuid': user['id'], 'username': user['name'], 'name':user['username']} for user in users]
             return user_info
         else:
             return None
@@ -86,7 +86,7 @@ def create_asset_permissions(config, users_info, assets_info):
     print(f"请求url:{url}")
     default_actions = ["connect", "upload", "download", "copy", "paste", "delete"]
     for user_info in users_info:
-        name = user_info['username']
+        name = user_info['name']
         user_id = user_info['uuid']
         assets = [asset['id'] for asset in assets_info]
         accounts = ['js_' + name]
@@ -133,7 +133,7 @@ def update_asset_permissions(config, existing_permission, new_assets, user_info)
     existing_assets = existing_permission.get('assets', [])
     added_assets = list(set(new_assets) - set(existing_assets))
 
-    name = user_info['username']
+    name = user_info['name']
     user_id = user_info['uuid']
     accounts = ['js_' + name]
 
