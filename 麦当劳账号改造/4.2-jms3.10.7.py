@@ -76,7 +76,7 @@ def check_existing_permission(config, name, user_info):
     permissions = get_asset_permissions(config)
     if permissions:
         for permission in permissions:
-            if permission['name'] == name and user_info['username'] in permission['name']:
+            if permission['name'] == name and user_info['name'] in permission['name']:
                 return True
     return False
 
@@ -123,7 +123,7 @@ def get_existing_permission(config, name, user_info):
     permissions = get_asset_permissions(config)
     if permissions:
         for permission in permissions:
-            if permission['name'] == name and user_info['username'] in permission['name']:
+            if permission['name'] == name and user_info['name'] in permission['name']:
                 return permission
     return None
 
