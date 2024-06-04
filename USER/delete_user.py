@@ -48,6 +48,7 @@ def delete_ldap_users(config):
         resp = requests.get(url, headers=make_headers(config), verify=False)
         resp.raise_for_status()
         users = resp.json()
+        delete_count = 0
         if isinstance(users, list) and users:
             for user in users:
                 if user['source']['value'] == 'ldap':
@@ -57,8 +58,10 @@ def delete_ldap_users(config):
                     delete_resp = requests.delete(delete_url, headers=make_headers(config), verify=False)
                     if delete_resp.status_code == 204:
                         print(f"成功删除来源为LDAP的用户，ID: {user_id}，NAME: {username}")
+                        delete_count += 1
                     else:
                         print(f"删除来源为LDAP的用户失败，ID: {user_id}，NAME: {username}")
+                    print(f"成功删除了 {delete_count} 个来源为ldap的用户")
         else:
             print("用户列表为空")
     except requests.exceptions.RequestException as e:
