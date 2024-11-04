@@ -23,7 +23,7 @@ def get_token(jms_url,username,password):
         print(response.text)
 
 if __name__ == '__main__':
-    jms_url = "https://192.168.31.152"
-    username = "user123"
+    jms_url = "http://10.1.12.27"
+    username = "linsimu"
     password = "jumpserver"
     get_token(jms_url,username,password)
