@@ -50,30 +50,26 @@ def get_user_uuids_by_usernames(config, usernames):
 
     return user_uuids
 
-def add_users_to_group(config, group_id, user_uuids):
-    """将用户UUID列表添加到指定的用户组中"""
-    url = f"{config.jms_url}/users/groups/{group_id}"
+def add_user_to_group_relation(config, group_id, user_uuid):
+    """将单个用户添加到指定的用户组中"""
+    url = f"{config.jms_url}/users/users-groups-relations/"
 
-    # 构造请求体，确保包括所有必需的字段
+    # 构造请求体
     data = {
-        "id": group_id,
-        "name": "默认组名称",  # 使用默认组名称
-        "comment": "默认备注",  # 使用默认备注
-        "users": [{"user_id": user_uuid} for user_uuid in user_uuids],  # 使用user_id字段
-        "labels": [],  # 可以保留空的labels列表
-        "org_id": config.jms_org
+        "user": user_uuid,
+        "usergroup": group_id
     }
 
     try:
         # 打印请求数据，以确保格式正确
         print("请求体数据:", json.dumps(data, indent=2))
 
-        # 发送 PUT 请求
-        resp = requests.patch(url, headers=make_headers(config), json=data, verify=False)
+        # 发送 PATCH 请求
+        resp = requests.post(url, headers=make_headers(config), json=data, verify=False)
         resp.raise_for_status()  # 如果返回的状态码不是 2xx，会抛出异常
 
-        if resp.status_code == 200:
-            print(f"成功将用户 {', '.join(user_uuids)} 添加到用户组 {group_id} 中")
+        if resp.status_code in (200, 201):
+            print(f"成功将用户 {user_uuid} 添加到用户组 {group_id} 中")
         else:
             print(f"更新用户组失败，响应状态码: {resp.status_code}")
             print("响应内容:", resp.text)
@@ -96,9 +92,10 @@ def main():
     # 获取用户UUID列表
     user_uuids = get_user_uuids_by_usernames(jms_config, usernames)
 
-    # 调用 add_users_to_group 函数并传递必要的参数
+    # 逐个将用户添加到用户组关系中
     if user_uuids:
-        add_users_to_group(jms_config, group_id, user_uuids)
+        for user_uuid in user_uuids:
+            add_user_to_group_relation(jms_config, group_id, user_uuid)
     else:
         print("没有找到有效的用户UUID。")
 
