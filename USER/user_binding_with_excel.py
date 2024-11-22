@@ -116,9 +116,9 @@ def process_excel_and_create_acls(config, excel_filename="user-acls.xlsx"):
 
         # 遍历每一行数据
         for index, row in df.iterrows():
-            acl_name = row['acl名称']  # 假设 Excel 中的列名是 'acl名称'
-            usernames = row['用户名'].split(',')  # 假设用户名列为逗号分隔的字符串
-            ip_group = row['ip列表'].split(',')  # 假设 IP 列表为逗号分隔的字符串
+            acl_name = row['acl名称']
+            usernames = row['用户名'].split(',')
+            ip_group = row['ip列表'].split(',')
 
             # 去除多余空格
             usernames = [username.strip() for username in usernames]
