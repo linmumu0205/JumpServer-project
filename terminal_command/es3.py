@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # __author:linmy
-# data:2024/12/6
+# data:2024/12/9
 
 import argparse
 import os
@@ -124,3 +124,6 @@ if __name__ == '__main__':
         exit(1)
 
     get_mysql(start, end)
+
+# 执行格式
+# python es3.py 2024-12-01 2024-12-08

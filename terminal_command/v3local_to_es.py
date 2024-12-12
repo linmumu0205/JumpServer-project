@@ -124,3 +124,6 @@ if __name__ == '__main__':
         exit(1)
 
     get_mysql(start, end)
+
+# 执行格式
+# python v3local_to_es.py 2024-12-01 2024-12-08
