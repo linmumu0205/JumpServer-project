@@ -36,7 +36,7 @@ import pymysql
 
 logging.info(f"Using pymysql version: {pymysql.__version__}")
 
-# 配置 SSL
+# 配置 SSL https自行解开注释
 #ssl_context = ssl.create_default_context()
 #ssl_context.check_hostname = False
 #ssl_context.verify_mode = ssl.CERT_NONE
@@ -44,9 +44,10 @@ logging.info(f"Using pymysql version: {pymysql.__version__}")
 # 初始化 Elasticsearch 客户端
 es = Elasticsearch(
     hosts=[config["ES_HOST"]],
-    basic_auth=(config["ES_USER"], config["ES_PASSWORD"]),  # 使用 basic_auth 替代 http_auth
-    verify_certs=False,
-    #ssl_context=ssl_context
+    basic_auth=(config["ES_USER"], config["ES_PASSWORD"]),# 在es8中使用 basic_auth 替代 http_auth
+    #http_auth=(config["ES_USER"], config["ES_PASSWORD"]), es7使用http认证
+    verify_certs=False, #https自行修改为true
+    #ssl_context=ssl_context #https解开注释
 )
 
 
