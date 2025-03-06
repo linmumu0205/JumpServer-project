@@ -14,7 +14,7 @@ def send_sms(phone_numbers, code_params, *args, **kwargs):
     mobile = phone_numbers[3:]
     params = {
         "account": "sanlingdianjikt-tz",  # 应用ID
-        "password": "9D2B00",  # 应用密码
+        "password": "xxxx",  # 应用密码
         "mobile": mobile,  # 手机号
         "content": f"您正在登录xxxx系统，验证码：{code_params}，切勿将验证码泄露于他人，本条验证码有效期5分钟。【xxxx】"
     }
