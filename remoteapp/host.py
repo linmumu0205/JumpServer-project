@@ -114,6 +114,8 @@ class AppletHost(Host):
         for username in usernames:
             # 原有用户名生成方式: 'js_' + username
             username = 'js_' + username
+            # 替换用户名中的@为_
+            username = username.replace('@', '_')
             # 调整：如果用户名超过17个字符，则截取前10位和后7位，确保总长度不超过20位
             if len(username) > 17:
                 username = username[:10] + username[-7:]
