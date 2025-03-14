@@ -20,3 +20,10 @@ kubectl apply -f pv-with-elk.yaml
 
 # 确认 PV 是否创建成功
 kubectl get pv -n elk
+
+
+##快捷删除操作
+
+#kubectl delete all --all --namespace=elk
+#kubectl delete pvc --all --namespace=elk
+#kubectl delete configmap --all --namespace=elk
