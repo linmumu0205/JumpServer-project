@@ -68,3 +68,4 @@ elasticsearch.username: "elastic"
 elasticsearch.password: "your-password"
 # 保存后重启kibana
 kubectl rollout restart deployment/kibana -n elk
+#--------追加-------
