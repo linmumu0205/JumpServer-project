@@ -1,0 +1,25 @@
+更新mysqld
+
+1、打开 /etc/systemd/system/mysqld.service
+将@LimitNOFILE = 5000修改为 LimitNOFILE=5000
+
+2、重载systemd配置
+systemctl daemon-reload
+
+3、使用systemd方式管理
+停止并禁用mysql服务
+systemctl stop mysql
+systemctl disable mysql
+
+4、重新加载 systemd 并启用 mysqld 服务
+systemctl daemon-reload
+systemctl enable mysqld
+systemctl start mysqld
+
+5、添加path环境变量
+vi /etc/profile
+export PATH=/opt/soft/mysql/bin:$PATH
+
+刷新生效
+source /etc/profile
+
